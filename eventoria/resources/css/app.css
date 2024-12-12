@@ -1,0 +1,10 @@
+
+.carousel-item img {
+    object-fit: cover; /* Agar gambar tetap proporsional dan tidak terdistorsi */
+    height: 300px; /* Atur tinggi gambar */
+    width: 100%; /* Lebar gambar mengikuti lebar container carousel */
+}
+.carousel-caption h5 {
+    text-shadow: 2px 2px 4px rgb(0, 0, 0); /* Efek shadow pada teks */
+    color: white; /* Pastikan warna teks terlihat dengan baik di atas gambar */
+}

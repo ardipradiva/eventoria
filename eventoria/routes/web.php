@@ -47,3 +47,6 @@ Route::get('/user/history', [EventController::class, 'history'])->name('user.his
 // Route untuk melihat semua event
 Route::get('/user/events', [EventController::class, 'events'])->name('user.events');
 
+Route::get('/user/event/{event}', [EventController::class, 'show'])->name('user.event.show');
+Route::get('/user/event', [EventController::class, 'index'])->name('user.event.index');
+

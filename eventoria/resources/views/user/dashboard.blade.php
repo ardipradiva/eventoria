@@ -48,10 +48,10 @@
         </button>
     </div>
 
-    {{-- List of 5 Latest Events (with Cards) --}}
+    {{-- List of All Events (with Cards) --}}
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            5 Event Terbaru
+            Semua Event
         </div>
         <div class="card-body">
             <div class="row">
@@ -62,7 +62,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $event->event_name }}</h5>
                                 <p class="card-text">{{ $event->event_location }} - {{ $event->event_date->format('d M Y') }}</p>
-                                <a href="{{ route('user.events') }}" class="btn btn-primary">Lihat Detail</a>
+                                <p class="card-text"><strong>Harga: </strong>Rp {{ number_format($event->event_price, 0, ',', '.') }}</p>
+                                <a href="{{ route('user.event.show', $event->id) }}" class="btn btn-primary">Lihat Detail</a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +71,6 @@
             </div>
         </div>
     </div>
-
-    <a href="{{ route('user.events') }}" class="btn btn-outline-primary w-100 mb-4">Lihat Semua Event</a>
 
     {{-- Footer --}}
     <footer class="text-center mt-4">

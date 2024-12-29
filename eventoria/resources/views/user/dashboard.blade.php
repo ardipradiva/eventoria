@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
 <div class="container mt-4">
@@ -69,6 +69,35 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+    </div>
+
+    {{-- Footer --}}
+    <footer class="text-center mt-4">
+        <p>Eventoria</p>
+    </footer>
+</div>
+
+{{-- Feedback Section --}}
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Feedback Anda
+        </div>
+        <div class="card-body">
+            <a href="{{ route('user.feedback.create') }}" class="btn btn-success mb-3">Berikan Feedback</a>
+
+            @if ($feedback->isEmpty())
+                <p>Belum ada feedback yang diberikan. Jadilah yang pertama!</p>
+            @else
+                <ul class="list-group">
+                    @foreach ($feedback as $item)
+                        <li class="list-group-item">
+                            <strong>{{ $item->name }}</strong>: {{ $item->message }}
+                            <span class="text-muted">({{ $item->created_at->format('d M Y') }})</span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 

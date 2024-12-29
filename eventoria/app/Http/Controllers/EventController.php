@@ -24,7 +24,7 @@ class EventController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        return view('user.profile', compact('user'));
+        return view('user.profile.profile', compact('user'));
     }
 
     // Method untuk cart

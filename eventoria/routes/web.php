@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentMethodController;
+
 
 
 Route::get('/', function () {
@@ -50,3 +52,9 @@ Route::get('/user/events', [EventController::class, 'events'])->name('user.event
 Route::get('/user/event/{event}', [EventController::class, 'show'])->name('user.event.show');
 Route::get('/user/event', [EventController::class, 'index'])->name('user.event.index');
 
+Route::get('/user/profile/paymentmethod', [PaymentMethodController::class, 'index'])->name('user.profile.paymentmethod.index');
+Route::get('/user/profile/paymentmethod/create', [PaymentMethodController::class, 'create'])->name('user.profile.paymentmethod.create');
+Route::post('/user/profile/paymentmethod', [PaymentMethodController::class, 'store'])->name('user.profile.paymentmethod.store');
+Route::get('/user/profile/paymentmethod/{paymentMethod}/edit', [PaymentMethodController::class, 'edit'])->name('user.profile.paymentmethod.edit');
+Route::put('/user/profile/paymentmethod/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('user.profile.paymentmethod.update');
+Route::delete('/user/profile/paymentmethod/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('user.profile.paymentmethod.destroy');

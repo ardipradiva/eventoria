@@ -14,6 +14,9 @@ class EventController extends Controller
     public function dashboard()
     {
         $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('login'); // Redirect to login if user is not authenticated
+        }
         $events = Event::latest()->take(5)->get(); // Menampilkan 5 event terbaru
         $feedback = Feedback::where('user_id', $user->id)->get(); // Ambil feedback milik user yang sedang login
         foreach ($events as $event) {

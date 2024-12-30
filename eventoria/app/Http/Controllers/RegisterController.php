@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event; // Pastikan model Event sudah diimpor
 
 class RegisterController extends Controller
 {
-    //
+    public function create($id)
+    {
+        // Ambil data event berdasarkan ID
+        $event = Event::findOrFail($id);
 
-    public function create(){
-        $nav = 'Register';
-        
-        return view('user.event.register',compact('nav'));
+        return view('user.event.register', compact('event'));
     }
+
     public function store(Request $request, $eventId)
     {
         $request->validate([
@@ -27,5 +29,4 @@ class RegisterController extends Controller
 
         return redirect()->route('user.event.payment', $eventId);
     }
-
 }

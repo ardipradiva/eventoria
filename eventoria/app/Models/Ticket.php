@@ -14,5 +14,6 @@ class Ticket extends Model
         'name',
         'email',
         'event_name',
+        'payment_method',
     ];
 }

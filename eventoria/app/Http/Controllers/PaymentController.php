@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Event;
+use App\Models\User;
+use App\Models\PaymentMethod;
+use App\Models\Ticket;
+
 class PaymentController extends Controller
 {
     // public function index()
@@ -72,28 +77,31 @@ class PaymentController extends Controller
     //     return response()->json(['message' => 'Payment deleted successfully']);
     // }
 
-    public function payment($eventId)
+    public function payment($id)
     {
-        $event = Event::findOrFail($eventId);
-        $paymentMethods = auth()->user()->paymentMethods->pluck('name'); // Ambil metode pembayaran user
+        // Ambil data event
+        $event = Event::findOrFail($id);
 
-        return view('user.event.payment', [
-            'event' => $event,
-            'name' => session('name'),
-            'email' => session('email'),
-            'payment_methods' => $paymentMethods,
-        ]);
+        // Ambil data nama dan email dari session
+        $name = session('name');
+        $email = session('email');
+
+        // Ambil metode pembayaran user saat ini
+        $user = User::where('email', $email)->firstOrFail();
+        $payment_methods = PaymentMethod::where('user_id', $user->id)->pluck('payment_method');
+
+        
+
+        return view('user.event.payment', compact('event', 'name', 'email', 'payment_methods'));
     }
 
-    public function store(Request $request, $eventId)
+    public function store(Request $request, $id)
     {
-        $event = Event::findOrFail($eventId);
-
+        $event = Event::findOrFail($id);
         Ticket::create([
-            'user_id' => auth()->id(),
-            'event_id' => $event->id,
             'name' => session('name'),
             'email' => session('email'),
+            'event_name' => $event->event_name,
             'payment_method' => $request->payment_method,
         ]);
 

@@ -57,16 +57,16 @@ Route::get('/user/event', [EventController::class, 'index'])->name('user.event.i
 Route::get('/user/event/{id}/show', [EventController::class, 'show'])->name('user.event.show');
 
 // Route untuk menampilkan form pendaftaran event
-Route::get('/user/event/{id}/register', [RegisterController::class, 'create'])->name('user.event.register');
+Route::get('/user/event/{event}/register', [RegisterController::class, 'create'])->name('user.event.register');
 
 // Route untuk menyimpan data pendaftaran
-Route::post('/user/event/{id}/register', [RegisterController::class, 'store'])->name('user.event.register.store');
+Route::post('/user/event/{event}/register', [RegisterController::class, 'store'])->name('user.event.register.store');
 
 // Route untuk menampilkan form pembayaran
-Route::get('/user/event/{id}/payment', [PaymentController::class, 'payment'])->name('user.event.payment');
+Route::get('/user/event/{event}/payment', [PaymentController::class, 'payment'])->name('user.event.payment');
 
 // Route untuk menyimpan data pembayaran
-Route::post('/user/event/{id}/payment', [PaymentController::class, 'store'])->name('user.event.payment.store');
+Route::post('/user/event/{event}/payment', [PaymentController::class, 'store'])->name('user.event.payment.store');
 
 
 

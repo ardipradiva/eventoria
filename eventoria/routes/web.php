@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\FeedbackController;
 
 
 
@@ -76,3 +77,13 @@ Route::post('/user/profile/paymentmethod', [PaymentMethodController::class, 'sto
 Route::get('/user/profile/paymentmethod/{paymentMethod}/edit', [PaymentMethodController::class, 'edit'])->name('user.profile.paymentmethod.edit');
 Route::put('/user/profile/paymentmethod/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('user.profile.paymentmethod.update');
 Route::delete('/user/profile/paymentmethod/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('user.profile.paymentmethod.destroy');
+
+
+// Feedback Routes
+Route::get('/user/feedback', [FeedbackController::class, 'index'])->name('user.feedback.index');
+Route::get('/user/feedback/create', [FeedbackController::class, 'create'])->name('user.feedback.create');
+Route::post('/user/feedback', [FeedbackController::class, 'store'])->name('user.feedback.store');
+Route::get('/user/feedback/{feedback}', [FeedbackController::class, 'show'])->name('user.feedback.show');
+Route::get('/user/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('user.feedback.edit');
+Route::put('/user/feedback/{feedback}', [FeedbackController::class, 'update'])->name('user.feedback.update');
+Route::delete('/user/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('user.feedback.destroy');

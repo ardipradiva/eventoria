@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Feedback;
 use Carbon\Carbon;
 
 class EventController extends Controller
@@ -14,10 +15,11 @@ class EventController extends Controller
     {
         $user = auth()->user();
         $events = Event::latest()->take(5)->get(); // Menampilkan 5 event terbaru
+        $feedback = Feedback::where('user_id', $user->id)->get(); // Ambil feedback milik user yang sedang login
         foreach ($events as $event) {
             $event->event_date = Carbon::parse($event->event_date);
         }
-        return view('user.dashboard', compact('user', 'events'));
+        return view('user.dashboard', compact('user', 'events', 'feedback'));
     }
 
     // Method untuk profile

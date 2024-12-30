@@ -1,5 +1,9 @@
 @extends('layouts.user')
-
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 @section('content')
 <div class="container mt-4">
     {{-- Heading --}}

@@ -48,7 +48,12 @@
                         <a href="{{ route('user.dashboard') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Kembali ke Daftar Event
                         </a>
-
+                        <a href="{{ route('user.event.register', $event->id) }}" class="btn btn-primary">
+                            Daftar
+                        </a>
+                        <a href="{{ route('user.event.payment', $event->id) }}" class="btn btn-success">
+                            Bayar
+                        </a>
                     </div>
                 </div>
             </div>

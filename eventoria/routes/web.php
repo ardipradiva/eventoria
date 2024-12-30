@@ -6,6 +6,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -51,6 +53,22 @@ Route::get('/user/events', [EventController::class, 'events'])->name('user.event
 
 Route::get('/user/event/{event}', [EventController::class, 'show'])->name('user.event.show');
 Route::get('/user/event', [EventController::class, 'index'])->name('user.event.index');
+// Route untuk menampilkan detail event
+Route::get('/user/event/{id}/show', [EventController::class, 'show'])->name('user.event.show');
+
+// Route untuk menampilkan form pendaftaran event
+Route::get('/user/event/{id}/register', [RegisterController::class, 'create'])->name('user.event.register');
+
+// Route untuk menyimpan data pendaftaran
+Route::post('/user/event/{id}/register', [RegisterController::class, 'store'])->name('user.event.register.store');
+
+// Route untuk menampilkan form pembayaran
+Route::get('/user/event/{id}/payment', [PaymentController::class, 'payment'])->name('user.event.payment');
+
+// Route untuk menyimpan data pembayaran
+Route::post('/user/event/{id}/payment', [PaymentController::class, 'store'])->name('user.event.payment.store');
+
+
 
 Route::get('/user/profile/paymentmethod', [PaymentMethodController::class, 'index'])->name('user.profile.paymentmethod.index');
 Route::get('/user/profile/paymentmethod/create', [PaymentMethodController::class, 'create'])->name('user.profile.paymentmethod.create');

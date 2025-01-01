@@ -18,7 +18,7 @@
             </a>
 
             {{-- History Icon Image --}}
-            <a href="{{ route('user.history') }}" class="btn btn-secondary me-3">
+            <a href="{{ route('user.history.filter') }}" class="btn btn-secondary me-3">
                 <img src="{{ asset('storage/images/history.png') }}" alt="History" style="width: 40px; height: 40px;">
             </a>
             

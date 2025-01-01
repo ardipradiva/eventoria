@@ -9,7 +9,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\FeedbackController;
-
+use App\Http\Controllers\TicketController;
 
 
 Route::get('/', function () {
@@ -87,3 +87,22 @@ Route::get('/user/feedback/{feedback}', [FeedbackController::class, 'show'])->na
 Route::get('/user/feedback/{feedback}/edit', [FeedbackController::class, 'edit'])->name('user.feedback.edit');
 Route::put('/user/feedback/{feedback}', [FeedbackController::class, 'update'])->name('user.feedback.update');
 Route::delete('/user/feedback/{feedback}', [FeedbackController::class, 'destroy'])->name('user.feedback.destroy');
+
+// Group route untuk halaman history user
+Route::prefix('user/history')->name('user.history.')->middleware('auth')->group(function () {
+    // Route untuk form filter nama dan email
+    Route::get('/filter', function () {
+        return view('user.history.filter');
+    })->name('filter.form');
+
+    // Route untuk memproses filter nama dan email
+    Route::post('/filter', [TicketController::class, 'filter'])->name('filter');
+
+    // Route lainnya tetap sama
+    Route::get('/', [TicketController::class, 'index'])->name('index');
+    Route::get('/{id}', [TicketController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [TicketController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [TicketController::class, 'update'])->name('update');
+    Route::delete('/{id}', [TicketController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}/print', [TicketController::class, 'print'])->name('print');
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Feedback;
 
 class FeedbackController extends Controller
 {
@@ -12,10 +13,10 @@ class FeedbackController extends Controller
     public function index()
     {
         //
-        $feedback = Ticket::all();
-        return view('feedback.index', compact('feedback'));
+        $feedback = Feedback::where('user_id', auth()->id())->get();
+        return view('user.feedback.index', compact('feedback'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -23,7 +24,7 @@ class FeedbackController extends Controller
     {
         //
         $nav = 'Tambah Feedback';
-        return view('feedback.create', compact('nav'));
+        return view('user.feedback.create', compact('nav'));
     }
 
     /**
@@ -31,15 +32,23 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validatedData = $request->validated([
+        // Validasi input
+
+        $validatedData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'message' => 'required|string',
         ]);
+        
+        // Tambahkan user_id secara manual
+        $validatedData['user_id'] = auth()->id();
+    
+        // Simpan data ke database
         Feedback::create($validatedData);
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil ditambahkan');
+    
+        return redirect()->route('user.feedback.index')->with('success', 'Feedback berhasil ditambahkan');
     }
+    
 
     /**
      * Display the specified resource.
@@ -48,7 +57,7 @@ class FeedbackController extends Controller
     {
         //
         $feedback = Feedback::findOrFail($id);
-        return view('feedback.show', compact('feedback'));
+        return view('user.feedback.show', compact('feedback'));
     }
 
     /**
@@ -58,7 +67,7 @@ class FeedbackController extends Controller
     {
         //
         $feedback = Feedback::findOrFail($id);
-        return view('feedback.edit', compact('feedback'));
+        return view('user.feedback.edit', compact('feedback'));
     }
 
     /**
@@ -66,15 +75,20 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $validatedData = $request->validated([
+        // Validasi input
+        $validatedData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'message' => 'required|string',
         ]);
-        Feedback::findOrFail($id)->update($validatedData);
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil diubah');
+    
+        // Temukan feedback berdasarkan ID dan update
+        $feedback = Feedback::findOrFail($id);
+        $feedback->update($validatedData);
+    
+        return redirect()->route('user.feedback.index')->with('success', 'Feedback berhasil diubah');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -83,6 +97,6 @@ class FeedbackController extends Controller
     {
         //
         Feedback::findOrFail($id)->delete();
-        return redirect()->route('feedback.index')->with('success', 'Feedback berhasil dihapus');
+        return redirect()->route('user.feedback.index')->with('success', 'Feedback berhasil dihapus');
     }
 }
